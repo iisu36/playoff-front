@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Table from './Table'
+import Standings from './Table'
 
 const App = (props) => {
 
@@ -12,7 +12,6 @@ const App = (props) => {
       .get('http://localhost:3001')
       .then(response => {
         console.log('promise fulfilled')
-        console.log(response.data)
         setStats(response.data)
       })
   }, [])
@@ -22,7 +21,7 @@ const App = (props) => {
 
       <h1>Änäriveikkaus</h1>
 
-      <Table stats={stats} />
+      <Standings stats={stats} />
 
     </div>
   )
