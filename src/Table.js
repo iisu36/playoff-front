@@ -200,6 +200,102 @@ const Standings = ({ stats }) => {
             points: 0,
             pisteporssi: 76
         },
+        {
+            standing: 0,
+            name: "Samppa",
+            teams: [
+                {
+                    name: "Colorado Avalanche",
+                    division: "West",
+                    points: 0,
+                },
+                {
+                    name: "Vegas Golden Knights",
+                    division: "West",
+                    points: 0,
+                },
+                {
+                    name: "Boston Bruins",
+                    division: "East",
+                    points: 0,
+                },
+                {
+                    name: "Washington Capitals",
+                    division: "East",
+                    points: 0,
+                },
+                {
+                    name: "Calgary Flames",
+                    division: "North",
+                    points: 0,
+                },
+                {
+                    name: "Toronto Maple Leafs",
+                    division: "North",
+                    points: 0,
+                },
+                {
+                    name: "Carolina Hurricanes",
+                    division: "Central",
+                    points: 0,
+                },
+                {
+                    name: "Tamba Bay Lightning",
+                    division: "Central",
+                    points: 0,
+                }
+            ],
+            points: 0,
+            pisteporssi: 81
+        },
+        {
+            standing: 0,
+            name: "Saku",
+            teams: [
+                {
+                    name: "Colorado Avalanche",
+                    division: "West",
+                    points: 0,
+                },
+                {
+                    name: "Vegas Golden Knights",
+                    division: "West",
+                    points: 0,
+                },
+                {
+                    name: "Boston Bruins",
+                    division: "East",
+                    points: 0,
+                },
+                {
+                    name: "Pittsburgh Penguins",
+                    division: "East",
+                    points: 0,
+                },
+                {
+                    name: "Calgary Flames",
+                    division: "North",
+                    points: 0,
+                },
+                {
+                    name: "Montreal Canadiens",
+                    division: "North",
+                    points: 0,
+                },
+                {
+                    name: "Chicago Blackhawks",
+                    division: "Central",
+                    points: 0,
+                },
+                {
+                    name: "Dallas Stars",
+                    division: "Central",
+                    points: 0,
+                }
+            ],
+            points: 0,
+            pisteporssi: 81
+        },
     ]
 
     const pointCounter = () => {
