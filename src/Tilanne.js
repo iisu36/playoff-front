@@ -3,11 +3,11 @@ import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Popper from 'popper.js'
 
-import './table.css'
+import './tilanne.css'
 
 import React, { useState } from 'react'
 
-const Standings = ({ stats }) => {
+const Tilanne = ({ stats }) => {
 
     let veikkaajat = [
         {
@@ -396,122 +396,124 @@ const Standings = ({ stats }) => {
     })
 
     const updateStyle = {
-        fontSize: 9
-    }
-
-    const pointsStyle = {
-        fontSize: 20
+        fontSize: 7
     }
 
     return (
         <div className="container-fluid">
 
             <div className="row">
-                <div className="col-sm-5">
-                    <table style={{borderSpacing: "1em"}}>
+                <div className="col-md-6"> {/* veikkaustaulu */}
 
+                    {veikkaajat.map(veikkaaja => {
 
-                        {veikkaajat.map(veikkaaja => {
-
-                            return (
-                                <tbody key={veikkaaja.name}>
-                                    <tr>
-                                        <td rowSpan="8">{veikkaaja.standing}.</td>
-                                        <td rowSpan="8">{veikkaaja.name}</td>
-                                        <td rowSpan="2">{veikkaaja.teams[0].division}</td>
-                                        <td>{veikkaaja.teams[0].name}</td>
-                                        <td>{veikkaaja.teams[0].points}</td>
-                                        <td rowSpan="8" className="points">{veikkaaja.points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{veikkaaja.teams[1].name}</td>
-                                        <td>{veikkaaja.teams[1].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowSpan="2">{veikkaaja.teams[2].division}</td>
-                                        <td>{veikkaaja.teams[2].name}</td>
-                                        <td>{veikkaaja.teams[2].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{veikkaaja.teams[3].name}</td>
-                                        <td>{veikkaaja.teams[3].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowSpan="2">{veikkaaja.teams[4].division}</td>
-                                        <td>{veikkaaja.teams[4].name}</td>
-                                        <td>{veikkaaja.teams[4].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{veikkaaja.teams[5].name}</td>
-                                        <td>{veikkaaja.teams[5].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowSpan="2">{veikkaaja.teams[6].division}</td>
-                                        <td>{veikkaaja.teams[6].name}</td>
-                                        <td>{veikkaaja.teams[6].points}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{veikkaaja.teams[7].name}</td>
-                                        <td>{veikkaaja.teams[7].points}</td>
-                                    </tr>
-                                </tbody>
-                            )
-                        })}
-
-                    </table>
-                </div>
-
-                <div className="col-sm-3 ml-1">
-                    {stats.divisions.map(division => {
                         return (
-                            <div key={division.division}>
-                                <h3>{division.division}</h3>
-                                <table>
-                                    <tbody>
-                                        {division.teams.map(team => {
+                            <div key={veikkaaja.name} className="row border border-dark rounded mt-2 bg-light"> {/* veikkaajalaatikko */}
+                                <div className="col-1 mx-n2 font-weight-bolder"> {/* sijoitus */}
+                                    <p>{veikkaaja.standing}.</p>
+                                </div>
+                                <div className="col-2 mr-3 font-weight-bolder"> {/* nimi */}
+                                    <p>{veikkaaja.name}</p>
+                                </div>
+                                <div className="col-8"> {/* joukkuelaatikko */}
 
-                                            const key = `division${team.team}`
+                                    {veikkaaja.teams.map(team => {
 
-                                            return (
-                                                <tr key={key}>
-                                                    <td>{team.divisionRank}.</td>
-                                                    <td>{team.team}</td>
-                                                    <td>{team.points}</td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
+                                        const key = `${veikkaaja.name}${team.name}`
+
+                                        const div = team.division.substring(0, 1)
+
+                                        return (
+                                            <div key={key} className="row border-bottom">
+                                                <div className="col-1"> {/* divisioona */}
+                                                    <p>{div}</p>
+                                                </div>
+                                                <div className="col-10 mr-n4"> {/* joukkue */}
+                                                    <p>{team.name}</p>
+                                                </div>
+                                                <div className="col-1 mx-n1"> {/* joukkueen pisteet */}
+                                                    <p>{team.points}</p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+
+                                </div>
+                                <div className="col-1 mx-n2"> {/* yhteispisteet */}
+                                    <h4>{veikkaaja.points}</h4>
+                                </div>
                             </div>
                         )
                     })}
                 </div>
 
+                <div className="col-md-3"> {/* divisioonat */}
 
-                <div className="col-sm-3 ml-1">
+                    {stats.divisions.map(division => {
+
+                        return (
+                            <div className="row border border-dark rounded mt-2 bg-secondary"> {/* divisioona */}
+                                <div className="col-12">
+                                    <div key={division.division} className="row"> {/* divisioona otsikko */}
+                                        <div className="col-12 text-center text-light">
+                                            <h3>{division.division}</h3>
+                                        </div>
+                                    </div>
+
+
+                                    {division.teams.map(team => {
+
+                                        const key = `league${team.team}`
+
+                                        return (
+                                            <div key={key} className="row border-bottom border-dark font-weight-bold"> {/* joukkue */}
+                                                <div className="col-1">
+                                                    <p>{team.divisionRank}.</p>
+                                                </div>
+                                                <div className="col-10 mr-n4">
+                                                    <p>{team.team}</p>
+                                                </div>
+                                                <div className="col-1 mr-2">
+                                                    <p>{team.points}</p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div className="col-md-3 border border-dark rounded mt-2 bg-dark text-white font-weight-bold pr-0">
                     <h3>NHL</h3>
-                    <table>
-                        <tbody>
-                            {stats.league.map(team => {
 
-                                let date = team.lastUpdated.toString().substring(5, 16)
+                    {stats.league.map(team => {
 
-                                const key = `league${team.team}`
-                                return (
-                                    <tr key={key}>
-                                        <td>{team.leagueRank}.</td>
-                                        <td>{team.team}</td>
-                                        <td>{team.points}</td>
-                                        <td style={updateStyle}>{date}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                        let date = team.lastUpdated.toString().substring(5, 16)
+
+                        const key = `league${team.team}`
+                        return (
+                            <div key={key} className="row border-bottom">
+                                <div className="col-1">
+                                    <p>{team.leagueRank}.</p>
+                                </div>
+                                <div className="col-7">
+                                    <p>{team.team}</p>
+                                </div>
+                                <div className="col-1 mx-n2">
+                                    <p>{team.points}</p>
+                                </div>
+                                <div className="col-3 font-weight-light">
+                                    <p style={updateStyle}>{date}</p>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>
     )
 }
 
-export default Standings
+export default Tilanne

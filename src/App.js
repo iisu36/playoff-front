@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Standings from './Table'
+import Tilanne from './Tilanne'
 
 const baseUrl = '/anari'
 
@@ -23,7 +24,7 @@ const App = (props) => {
 
       <h1>Änäriveikkaus</h1>
 
-      <Standings stats={stats} />
+      <Tilanne stats={stats} />
 
     </div>
   )
