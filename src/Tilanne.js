@@ -5,348 +5,15 @@ import Popper from 'popper.js'
 
 import './tilanne.css'
 
-import React, { useState } from 'react'
+import React from 'react'
 
-const Tilanne = ({ stats }) => {
+const Tilanne = ({ stats, players }) => {
 
-    let veikkaajat = [
-        {
-            standing: 0,
-            name: "Kuukkeli",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "St. Louis Blues",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Pittsburgh Penguins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Washington Capitals",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Calgary Flames",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Toronto Maple Leafs",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Dallas Stars",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Tamba Bay Lightning",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 86
-        },
-        {
-            standing: 0,
-            name: "Karvanen",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Vegas Golden Knights",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Boston Bruins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "New York Rangers",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Edmonton Oilers",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Vancouver Canucks",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Carolina Hurricanes",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Tamba Bay Lightning",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 0
-        },
-        {
-            standing: 0,
-            name: "Huida",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "St. Louis Blues",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Boston Bruins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "New York Islanders",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Toronto Maple Leafs",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Vancouver Canucks",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Carolina Hurricanes",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Tamba Bay Lightning",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 80
-        },
-        {
-            standing: 0,
-            name: "Pääjoki",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Vegas Golden Knights",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Boston Bruins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Washington Capitals",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Toronto Maple Leafs",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Vancouver Canucks",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Carolina Hurricanes",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Tamba Bay Lightning",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 76
-        },
-        {
-            standing: 0,
-            name: "Samppa",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Vegas Golden Knights",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Boston Bruins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Washington Capitals",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Calgary Flames",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Toronto Maple Leafs",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Carolina Hurricanes",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Tamba Bay Lightning",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 81
-        },
-        {
-            standing: 0,
-            name: "Saku",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Vegas Golden Knights",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Boston Bruins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Pittsburgh Penguins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Calgary Flames",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Montreal Canadiens",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Chicago Blackhawks",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Dallas Stars",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 81
-        },
-        {
-            standing: 0,
-            name: "Halminen",
-            teams: [
-                {
-                    name: "Colorado Avalanche",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "St. Louis Blues",
-                    division: "West",
-                    points: 0,
-                },
-                {
-                    name: "Pittsburgh Penguins",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Washington Capitals",
-                    division: "East",
-                    points: 0,
-                },
-                {
-                    name: "Edmonton Oilers",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Toronto Maple Leafs",
-                    division: "North",
-                    points: 0,
-                },
-                {
-                    name: "Carolina Hurricanes",
-                    division: "Central",
-                    points: 0,
-                },
-                {
-                    name: "Florida Panthers",
-                    division: "Central",
-                    points: 0,
-                }
-            ],
-            points: 0,
-            pisteporssi: 81
-        },
-    ]
+    let veikkaajat = players
+
+    if (!stats.league || !stats.divisions || !veikkaajat) {
+        return null
+    }
 
     const pointCounter = () => {
 
@@ -362,15 +29,21 @@ const Tilanne = ({ stats }) => {
         })
     }
 
-    if (!stats.league || !stats.divisions) {
-        return null
-    }
-
     stats.league.map(team => {
         veikkaajat.map(veikkaaja => {
             veikkaaja.teams.map(joukkue => {
                 if (team.team === joukkue.name) {
                     joukkue.points = team.points
+                }
+            })
+
+            veikkaaja.teams.sort((a, b) => {
+                if (a.points < b.points) return 1
+                if (a.points > b.points) return -1
+
+                if (a.points === b.points) {
+                    if (a.name.toUpperCase() < b.name.toUpperCase()) return -1
+                    else return 1
                 }
             })
         })
@@ -395,27 +68,27 @@ const Tilanne = ({ stats }) => {
         veikkaaja.standing = index++
     })
 
-    const updateStyle = {
-        fontSize: 7
-    }
-
     return (
         <div className="container-fluid">
 
-            <div className="row">
-                <div className="col-md-6"> {/* veikkaustaulu */}
+            <div className="row px-1">
+                <div className="col-sm-4"> {/* veikkaustaulu */}
 
                     {veikkaajat.map(veikkaaja => {
 
                         return (
-                            <div key={veikkaaja.name} className="row border border-dark rounded mt-2 bg-light"> {/* veikkaajalaatikko */}
-                                <div className="col-1 mx-n2 font-weight-bolder"> {/* sijoitus */}
-                                    <p>{veikkaaja.standing}.</p>
+                            <div key={veikkaaja.name} className="row border border-dark rounded mt-1 bg-light"> {/* veikkaajalaatikko */}
+                                <div className="col-12">
+                                    <div className="row">
+                                        <div className="col-9 font-weight-bolder"> {/* sijoitus ja nimi */}
+                                            <h4>{veikkaaja.standing}. {veikkaaja.name}</h4>
+                                        </div>
+                                        <div className="col-3 text-right pr-2"> {/* yhteispisteet */}
+                                            <h4>{veikkaaja.points}</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-2 mr-3 font-weight-bolder"> {/* nimi */}
-                                    <p>{veikkaaja.name}</p>
-                                </div>
-                                <div className="col-8"> {/* joukkuelaatikko */}
+                                <div className="col-12"> {/* joukkuelaatikko */}
 
                                     {veikkaaja.teams.map(team => {
 
@@ -425,36 +98,39 @@ const Tilanne = ({ stats }) => {
 
                                         return (
                                             <div key={key} className="row border-bottom">
-                                                <div className="col-1"> {/* divisioona */}
+                                                <div className="col-1 pr-0"> {/* divisioona */}
                                                     <p>{div}</p>
                                                 </div>
-                                                <div className="col-10 mr-n4"> {/* joukkue */}
+                                                <div className="col-9"> {/* joukkue */}
                                                     <p>{team.name}</p>
                                                 </div>
-                                                <div className="col-1 mx-n1"> {/* joukkueen pisteet */}
+                                                <div className="col-2 text-right"> {/* joukkueen pisteet */}
                                                     <p>{team.points}</p>
                                                 </div>
                                             </div>
                                         )
                                     })}
 
-                                </div>
-                                <div className="col-1 mx-n2"> {/* yhteispisteet */}
-                                    <h4>{veikkaaja.points}</h4>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <p>Pistepörssi: {veikkaaja.pisteporssi} p.</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         )
                     })}
                 </div>
 
-                <div className="col-md-3"> {/* divisioonat */}
+                <div className="col-sm-4 px-3"> {/* divisioonat */}
 
                     {stats.divisions.map(division => {
 
                         return (
-                            <div className="row border border-dark rounded mt-2 bg-secondary"> {/* divisioona */}
+                            <div key={division.division} className="row border border-dark rounded mt-1 bg-secondary"> {/* divisioona */}
                                 <div className="col-12">
-                                    <div key={division.division} className="row"> {/* divisioona otsikko */}
+                                    <div className="row"> {/* divisioona otsikko */}
                                         <div className="col-12 text-center text-light">
                                             <h3>{division.division}</h3>
                                         </div>
@@ -467,13 +143,10 @@ const Tilanne = ({ stats }) => {
 
                                         return (
                                             <div key={key} className="row border-bottom border-dark font-weight-bold"> {/* joukkue */}
-                                                <div className="col-1">
-                                                    <p>{team.divisionRank}.</p>
+                                                <div className="col-10">
+                                                    <p>{team.divisionRank}. {team.team}</p>
                                                 </div>
-                                                <div className="col-10 mr-n4">
-                                                    <p>{team.team}</p>
-                                                </div>
-                                                <div className="col-1 mr-2">
+                                                <div className="col-2 text-right">
                                                     <p>{team.points}</p>
                                                 </div>
                                             </div>
@@ -485,32 +158,33 @@ const Tilanne = ({ stats }) => {
                     })}
                 </div>
 
-                <div className="col-md-3 border border-dark rounded mt-2 bg-dark text-white font-weight-bold pr-0">
-                    <h3>NHL</h3>
+                <div className="col-sm-4">
+                    <div className="row border border-dark rounded mt-1 bg-dark text-white font-weight-bold">
+                        <div className="col-12">
+                            <h3 className="text-center">NHL</h3>
 
-                    {stats.league.map(team => {
+                            {stats.league.map(team => {
 
-                        let date = team.lastUpdated.toString().substring(5, 16)
+                                const key = `league${team.team}`
+                                return (
+                                    <div key={key} className="row border-bottom">
+                                        <div className="col-10">
+                                            <p>{team.leagueRank}. {team.team}</p>
+                                        </div>
+                                        <div className="col-2 text-right">
+                                            <p>{team.points}</p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
 
-                        const key = `league${team.team}`
-                        return (
-                            <div key={key} className="row border-bottom">
-                                <div className="col-1">
-                                    <p>{team.leagueRank}.</p>
-                                </div>
-                                <div className="col-7">
-                                    <p>{team.team}</p>
-                                </div>
-                                <div className="col-1 mx-n2">
-                                    <p>{team.points}</p>
-                                </div>
-                                <div className="col-3 font-weight-light">
-                                    <p style={updateStyle}>{date}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
+                    <div className="row">
+
+                    </div>
                 </div>
+
             </div>
         </div>
     )
