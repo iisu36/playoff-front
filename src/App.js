@@ -10,18 +10,14 @@ const App = (props) => {
   const [players, setPlayers] = useState([])
 
   useEffect(() => {
-    console.log('effect')
     axios
       .get(baseUrl)
       .then(response => {
-        console.log('stats')
         setStats(response.data)
       })
     axios
       .get('/anari/pelaajat')
       .then(response => {
-        console.log('pelaajat')
-        console.log(response.data)
         setPlayers(response.data)
       })
   }, [])
