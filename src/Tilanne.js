@@ -71,24 +71,24 @@ const Tilanne = ({ stats, players }) => {
     return (
         <div className="container-fluid">
 
-            <div className="row px-1">
+            <div className="row">
                 <div className="col-sm-4"> {/* veikkaustaulu */}
 
                     {veikkaajat.map(veikkaaja => {
 
                         return (
                             <div key={veikkaaja.name} className="row border border-dark rounded mt-1 bg-light"> {/* veikkaajalaatikko */}
-                                <div className="col-12">
+                                <div className="col-12 mt-1">
                                     <div className="row">
-                                        <div className="col-9 font-weight-bolder"> {/* sijoitus ja nimi */}
+                                        <div className="col-9 font-weight-bolder px-1"> {/* sijoitus ja nimi */}
                                             <h4>{veikkaaja.standing}. {veikkaaja.name}</h4>
                                         </div>
-                                        <div className="col-3 text-right pr-2"> {/* yhteispisteet */}
+                                        <div className="col-3 text-right pr-1"> {/* yhteispisteet */}
                                             <h4>{veikkaaja.points}</h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-12"> {/* joukkuelaatikko */}
+                                <div className="col-12 px-0"> {/* joukkuelaatikko */}
 
                                     {veikkaaja.teams.map(team => {
 
@@ -97,14 +97,14 @@ const Tilanne = ({ stats, players }) => {
                                         const div = team.division.substring(0, 1)
 
                                         return (
-                                            <div key={key} className="row border-bottom">
-                                                <div className="col-1 pr-0"> {/* divisioona */}
-                                                    <p>{div}</p>
+                                            <div key={key} className="row border-bottom mx-0">
+                                                <div className="col-1 px-1">
+                                                    <img src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${team.teamId}.svg`} alt="img" width="20px" height="20px" />
                                                 </div>
-                                                <div className="col-9"> {/* joukkue */}
+                                                <div className="col-10 pr-0 pl-2"> {/* joukkue */}
                                                     <p>{team.name}</p>
                                                 </div>
-                                                <div className="col-2 text-right"> {/* joukkueen pisteet */}
+                                                <div className="col-1 pl-0 text-right"> {/* joukkueen pisteet */}
                                                     <p>{team.points}</p>
                                                 </div>
                                             </div>
@@ -112,7 +112,7 @@ const Tilanne = ({ stats, players }) => {
                                     })}
 
                                     <div className="row">
-                                        <div className="col-12">
+                                        <div className="col-12 pl-4">
                                             <p>Pistepörssi: {veikkaaja.pisteporssi} p.</p>
                                         </div>
                                     </div>
@@ -123,13 +123,13 @@ const Tilanne = ({ stats, players }) => {
                     })}
                 </div>
 
-                <div className="col-sm-4 px-3"> {/* divisioonat */}
+                <div className="col-sm-4"> {/* divisioonat */}
 
                     {stats.divisions.map(division => {
 
                         return (
-                            <div key={division.division} className="row border border-dark rounded mt-1 bg-secondary"> {/* divisioona */}
-                                <div className="col-12">
+                            <div key={division.division} className="row border-dark rounded mt-1 bg-secondary"> {/* divisioona */}
+                                <div className="col-12 px-0 mx-0">
                                     <div className="row"> {/* divisioona otsikko */}
                                         <div className="col-12 text-center text-light">
                                             <h3>{division.division}</h3>
@@ -139,14 +139,17 @@ const Tilanne = ({ stats, players }) => {
 
                                     {division.teams.map(team => {
 
-                                        const key = `league${team.team}`
+                                        const key = `divisiom${team.team}`
 
                                         return (
-                                            <div key={key} className="row border-bottom border-dark font-weight-bold"> {/* joukkue */}
-                                                <div className="col-10">
-                                                    <p>{team.divisionRank}. {team.team}</p>
+                                            <div key={key} className="row border-bottom border-dark font-weight-bold mx-0"> {/* joukkue */}
+                                                <div className="col-1 px-1">
+                                                    <img src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${team.teamId}.svg`} alt="img" width="20px" height="20px" />
                                                 </div>
-                                                <div className="col-2 text-right">
+                                                <div className="col-10 pr-0 pl-2"> {/* joukkue */}
+                                                    <p>{team.team}</p>
+                                                </div>
+                                                <div className="col-1 pl-0 text-right"> {/* joukkueen pisteet */}
                                                     <p>{team.points}</p>
                                                 </div>
                                             </div>
@@ -168,10 +171,13 @@ const Tilanne = ({ stats, players }) => {
                                 const key = `league${team.team}`
                                 return (
                                     <div key={key} className="row border-bottom">
-                                        <div className="col-10">
-                                            <p>{team.leagueRank}. {team.team}</p>
+                                        <div className="col-1 px-1">
+                                            <img src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${team.teamId}.svg`} alt="img" width="20px" height="20px" />
                                         </div>
-                                        <div className="col-2 text-right">
+                                        <div className="col-10 pr-0 pl-2"> {/* joukkue */}
+                                            <p>{team.team}</p>
+                                        </div>
+                                        <div className="col-1 pl-0 text-right"> {/* joukkueen pisteet */}
                                             <p>{team.points}</p>
                                         </div>
                                     </div>

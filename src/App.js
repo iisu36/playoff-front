@@ -25,7 +25,7 @@ const App = (props) => {
   return (
     <div>
 
-      <h1 className="text-center">Änäriveikkaus</h1>
+      <h1 className="text-center">Änäri<img src="https://upload.wikimedia.org/wikipedia/en/e/e4/NHL_Logo_former.svg" alt="-" width="100" height="100"/>veikkaus</h1>
 
       <Tilanne stats={stats} players={players} />
 
