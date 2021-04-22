@@ -7,7 +7,7 @@ import './tilanne.css'
 
 import React from 'react'
 
-const Tilanne = ({ stats, players }) => {
+const Tilanne = ({ stats, players, porssi }) => {
 
     let veikkaajat = players
 
@@ -57,8 +57,10 @@ const Tilanne = ({ stats, players }) => {
         if (a.points > b.points) return -1
 
         if (a.points === b.points) {
-            if (a.name.toUpperCase() < b.name.toUpperCase()) return -1
-            else return 1
+            const aPorssi = Math.abs(a.pisteporssi - porssi.points)
+            const bPorssi = Math.abs(b.pisteporssi - porssi.points)
+            if (aPorssi < bPorssi) return -1
+            return 1
         }
     })
 
@@ -73,6 +75,19 @@ const Tilanne = ({ stats, players }) => {
 
             <div className="row">
                 <div className="col-sm-4"> {/* veikkaustaulu */}
+
+                    <div key={porssi.name} className="row border border-dark rounded mt-1 bg-warning"> {/* pörssilaatikko */}
+                        <div className="col-12 mt-1">
+                            <div className="row">
+                                <div className="col-9 font-weight-bolder px-1"> {/* nimi */}
+                                    <h4>Pörssi: {porssi.name}</h4>
+                                </div>
+                                <div className="col-3 text-right pr-1"> {/* pisteet */}
+                                    <h4>{porssi.points} p.</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     {veikkaajat.map(veikkaaja => {
 
@@ -111,9 +126,12 @@ const Tilanne = ({ stats, players }) => {
                                         )
                                     })}
 
-                                    <div className="row">
-                                        <div className="col-12 pl-4">
-                                            <p>Pistepörssi: {veikkaaja.pisteporssi} p.</p>
+                                    <div className="row mx-0 bg-warning rounded-bottom">
+                                        <div className="col-9 pl-2">
+                                            <p>Pistepörssi:</p>
+                                        </div>
+                                        <div className="col-3 pr-2 text-right"> {/* joukkueen pisteet */}
+                                            <p>{veikkaaja.pisteporssi} p.</p>
                                         </div>
                                     </div>
 

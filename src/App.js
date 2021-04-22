@@ -8,6 +8,7 @@ const App = (props) => {
 
   const [stats, setStats] = useState([])
   const [players, setPlayers] = useState([])
+  const [porssi, setPorssi] = useState(0)
 
   useEffect(() => {
     axios
@@ -20,6 +21,11 @@ const App = (props) => {
       .then(response => {
         setPlayers(response.data)
       })
+    axios
+      .get('/anari/porssi')
+      .then(response => {
+        setPorssi(response.data)
+      })
   }, [])
 
   return (
@@ -27,7 +33,7 @@ const App = (props) => {
 
       <h1 className="text-center">Änäri<img src="https://upload.wikimedia.org/wikipedia/en/e/e4/NHL_Logo_former.svg" alt="-" width="100" height="100"/>veikkaus</h1>
 
-      <Tilanne stats={stats} players={players} />
+      <Tilanne stats={stats} players={players} porssi={porssi}/>
 
     </div>
   )
