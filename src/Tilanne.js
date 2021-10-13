@@ -32,8 +32,10 @@ const Tilanne = ({ stats, players, porssi }) => {
     stats.league.map(team => {
         veikkaajat.map(veikkaaja => {
             veikkaaja.teams.map(joukkue => {
-                if (team.team === joukkue.name) {
+                if (team.teamId === joukkue.teamId) {
                     joukkue.points = team.points
+                    joukkue.name = team.team
+                    joukkue.rank = team.leagueRank
                 }
             })
 
@@ -42,7 +44,7 @@ const Tilanne = ({ stats, players, porssi }) => {
                 if (a.points > b.points) return -1
 
                 if (a.points === b.points) {
-                    if (a.name.toUpperCase() < b.name.toUpperCase()) return -1
+                    if (parseInt(a.rank) < parseInt(b.rank)) return -1
                     else return 1
                 }
             })
@@ -109,7 +111,7 @@ const Tilanne = ({ stats, players, porssi }) => {
 
                                         const key = `${veikkaaja.name}${team.name}`
 
-                                        const div = team.division.substring(0, 1)
+                                        
 
                                         return (
                                             <div key={key} className="row border-bottom mx-0">
