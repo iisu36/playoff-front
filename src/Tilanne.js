@@ -16,10 +16,10 @@ const Tilanne = ({ stats, players, porssi }) => {
   }
 
   const pointCounter = () => {
-    veikkaajat.map((veikkaaja) => {
+    veikkaajat.forEach((veikkaaja) => {
       let points = 0
 
-      veikkaaja.teams.map((team) => {
+      veikkaaja.teams.forEach((team) => {
         points += team.points
       })
 
@@ -27,10 +27,10 @@ const Tilanne = ({ stats, players, porssi }) => {
     })
   }
 
-  stats.league.map((team) => {
-    veikkaajat.map((veikkaaja) => {
-      veikkaaja.teams.map((joukkue) => {
-        if (team.teamId === joukkue.teamId) {
+  stats.league.forEach((team) => {
+    veikkaajat.forEach((veikkaaja) => {
+      veikkaaja.teams.forEach((joukkue) => {
+        if (team.teamId === ids[joukkue.teamId]) {
           joukkue.points = team.points
           joukkue.name = team.team
           joukkue.rank = team.leagueRank
