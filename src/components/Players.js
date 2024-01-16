@@ -30,6 +30,7 @@ const Players = ({ players, standings, statLeader }) => {
 const countPoints = (players, standings, statLeader) => {
   const countedPlayers = [...players]
   countedPlayers.forEach((player) => {
+    player.points = 0
     player.teams.forEach((playerTeam) => {
       const team = standings[playerTeam.teamId]
       playerTeam.points = team.points
