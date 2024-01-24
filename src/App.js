@@ -60,9 +60,15 @@ const App = () => {
   const [statLeader, setStatLeader] = useState(false)
 
   useEffect(() => {
-    axios.get(baseUrl).then((response) => {
-      setStandings(response.data)
-    })
+    axios.get(baseUrl).then(
+      (response) => {
+        setStandings(response.data)
+      },
+      (reason) => {
+        console.log(reason)
+        setStandings('error')
+      }
+    )
     axios.get('/anari/players').then((response) => {
       setPlayers(response.data)
     })
@@ -85,23 +91,23 @@ const App = () => {
           alt="-"
         />
         <h1>VEIKKAUS</h1>
-        {statLeader && (
-          <h4>
-            {statLeader.name}: {statLeader.points}
-          </h4>
+        {!statLeader && <h4>Loading...</h4>}
+        {statLeader.name && (
+          <h4>{`${statLeader.name}: ${statLeader.points}`}</h4>
         )}
-        {statLeader === 'error' && <h4>Error reaching NHL.com</h4>}
+        {statLeader === 'error' && <h4>Error in nhl.com</h4>}
       </header>
 
-      {/* {statLeader && <StatLeader statLeader={statLeader}></StatLeader>} */}
-      {standings && (
+      {!standings && <h1>Loading...</h1>}
+      {standings === 'error' && <h1>Error in nhl.com</h1>}
+      {standings['ANA'] && (
         <>
           <Divisions standings={standings}></Divisions>
           {/* <League standings={standings}></League> */}
         </>
       )}
 
-      {standings && players && (
+      {standings['ANA'] && players && (
         <Players
           standings={standings}
           players={players}
