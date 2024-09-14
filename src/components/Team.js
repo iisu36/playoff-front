@@ -20,12 +20,7 @@ const Wrapper = styled.div`
 const Team = ({ team, name = false }) => {
   return (
     <Wrapper>
-      <img
-        src={`https://assets.nhle.com/logos/nhl/svg/${
-          ids[team.teamId]
-        }_light.svg`}
-        alt="img"
-      />
+      <img src={team.teamLogo} alt="img" />
 
       <h4>
         {name && name} {team.points}

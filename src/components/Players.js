@@ -20,6 +20,7 @@ const Players = ({ players, standings, statLeader }) => {
             key={player.name}
             player={player}
             playerRank={playerRank++}
+            standings={standings}
           ></Player>
         )
       })}

@@ -40,7 +40,7 @@ const DivisionWrapper = styled.div`
 `
 
 const TeamsWrapper = styled.div`
-  @media (max-width: 450px) {
+  @media (max-width: 550px) {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(3, 1fr);

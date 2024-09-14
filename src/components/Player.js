@@ -47,7 +47,7 @@ const DivisionWrapper = styled.div`
   background-color: ${(props) => colors[props.division]};
 `
 
-const Player = ({ player, playerRank }) => {
+const Player = ({ player, playerRank, standings }) => {
   return (
     <Wrapper>
       <NameWrapper>
@@ -66,6 +66,7 @@ const Player = ({ player, playerRank }) => {
               {player.teams
                 .filter((team) => team.division === division)
                 .map((team) => {
+                  team.teamLogo = standings[team.teamId].teamLogo
                   const key = `${player.name}${team.teamId}`
                   return <Team key={key} team={team}></Team>
                 })}
