@@ -7,6 +7,8 @@ import StatLeader from './components/StatLeader'
 import Divisions from './components/Divisions'
 import League from './components/League'
 
+import PlayerForm from './components/PlayerForm'
+
 const baseUrl = '/anari'
 
 const Wrapper = styled.div`
@@ -114,6 +116,7 @@ const App = () => {
           statLeader={statLeader}
         ></Players>
       )}
+      {/* {<PlayerForm standings={standings} />} */}
     </Wrapper>
   )
 }
