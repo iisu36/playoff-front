@@ -89,7 +89,7 @@ const App = () => {
     <Wrapper>
       <header>
         <img
-          src="https://upload.wikimedia.org/wikipedia/en/e/e4/NHL_Logo_former.svg"
+          src="https://upload.wikimedia.org/wikipedia/commons/e/e4/NHL_Logo_former.svg"
           alt="-"
         />
         <h1>VEIKKAUS</h1>
