@@ -1,30 +1,26 @@
-import { ids } from '../utils'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: 4px;
 
   img {
-    width: 100%;
+    width: 30px;
   }
 
   h4 {
-    color: black;
+    color: white;
   }
 `
 
-const Team = ({ team, name = false }) => {
+const Team = ({ team }) => {
   return (
     <Wrapper>
       <img src={team.teamLogo} alt="img" />
 
-      <h4>
-        {name && name} {team.points}
-      </h4>
+      <h4>{team.wins ?? 0}</h4>
     </Wrapper>
   )
 }

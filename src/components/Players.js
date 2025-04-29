@@ -8,8 +8,8 @@ const Wrapper = styled.div`
   gap: 4px;
 `
 
-const Players = ({ players, standings, statLeader }) => {
-  const countedPlayers = countPoints(players, standings, statLeader)
+const Players = ({ players, series }) => {
+  const countedPlayers = countPoints(players, series)
   let playerRank = 1
 
   return (
@@ -20,7 +20,7 @@ const Players = ({ players, standings, statLeader }) => {
             key={player.name}
             player={player}
             playerRank={playerRank++}
-            standings={standings}
+            series={player.series}
           ></Player>
         )
       })}
@@ -28,31 +28,48 @@ const Players = ({ players, standings, statLeader }) => {
   )
 }
 
-const countPoints = (players, standings, statLeader) => {
+const countPoints = (players, series) => {
   const countedPlayers = [...players]
   countedPlayers.forEach((player) => {
     player.points = 0
-    player.teams.forEach((playerTeam) => {
-      const team = standings[playerTeam.teamId]
-      playerTeam.points = team.points
-      playerTeam.name = team.teamName
-      playerTeam.rank = team.leagueRank
-      playerTeam.division = team.division
-      playerTeam.divisionRank = team.divisionRank
-
-      player.points += team.points
+    player.series = structuredClone(series)
+    const playerSeries = {}
+    player.firstRound.forEach((s) => {
+      playerSeries[s.seriesLetter] = {
+        topWins: s.topWins,
+        bottomWins: s.bottomWins,
+      }
     })
+    player.series.forEach((s) => {
+      if (s.seriesAbbrev !== 'R1') return
+      if (
+        s.bottomSeedWins + s.topSeedWins === 7 &&
+        playerSeries[s.seriesLetter].topWins === s.topSeedWins &&
+        playerSeries[s.seriesLetter].bottomWins === s.bottomSeedWins
+      ) {
+        player.points += 5
+      } else if (
+        (s.topSeedWins === 4 &&
+          playerSeries[s.seriesLetter].topWins === s.topSeedWins) ||
+        (s.bottomSeedWins === 4 &&
+          playerSeries[s.seriesLetter].bottomWins === s.bottomSeedWins)
+      ) {
+        player.points += 2
+      } else if (
+        s.topSeedWins + s.bottomSeedWins === 7 &&
+        s.topSeedWins + s.bottomSeedWins ===
+          playerSeries[s.seriesLetter].topWins +
+            playerSeries[s.seriesLetter].bottomWins
+      ) {
+        player.points += 1
+      }
 
-    player.teams.sort((a, b) => parseInt(a.rank) - parseInt(b.rank))
+      s.topSeedWins = playerSeries[s.seriesLetter].topWins
+      s.bottomSeedWins = playerSeries[s.seriesLetter].bottomWins
+    })
   })
 
   countedPlayers.sort((a, b) => {
-    if (a.points === b.points) {
-      return (
-        Math.abs(a.statLeader - statLeader.points) -
-        Math.abs(b.statLeader - statLeader.points)
-      )
-    }
     return b.points - a.points
   })
   return countedPlayers

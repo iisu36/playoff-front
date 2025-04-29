@@ -38,7 +38,6 @@ const reducer = (state, action) => {
 const PlayerForm = ({ standings }) => {
   const [state, dispatch] = useReducer(reducer, { teams: [] })
   const [name, setName] = useState('')
-  const [statLeader, setStatLeader] = useState('0')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -46,14 +45,12 @@ const PlayerForm = ({ standings }) => {
       name: name,
       teams: state.teams,
       points: 0,
-      statLeader: parseInt(statLeader),
     })
     axios
       .post('/anari/players', {
         name: name,
         teams: state.teams,
         points: 0,
-        statLeader: parseInt(statLeader),
       })
       .then(
         (response) => {
@@ -98,13 +95,6 @@ const PlayerForm = ({ standings }) => {
             })}
           </DivisionWrapper>
         )}
-
-        <input
-          type="text"
-          placeholder="Stat Leader"
-          value={statLeader}
-          onChange={(event) => setStatLeader(event.target.value)}
-        />
         <button type="submit">Submit</button>
       </Form>
     </Wrapper>

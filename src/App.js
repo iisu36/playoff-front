@@ -3,13 +3,11 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 import Players from './components/Players'
-import StatLeader from './components/StatLeader'
-import Divisions from './components/Divisions'
-import League from './components/League'
+import Playoffs from './components/Series'
 
 import PlayerForm from './components/PlayerForm'
 
-const baseUrl = '/anari'
+const baseUrl = '/playoff'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -23,14 +21,12 @@ const Wrapper = styled.div`
   gap: 8px;
   padding: 8px;
 
-  @media (max-width: 550px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas:
-      'header'
-      'divisions'
-      'players';
-  }
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    'header'
+    'divisions'
+    'players';
 
   header {
     grid-area: header;
@@ -57,32 +53,22 @@ const Wrapper = styled.div`
 `
 
 const App = () => {
-  const [standings, setStandings] = useState(false)
+  const [series, setSeries] = useState(false)
   const [players, setPlayers] = useState(false)
-  const [statLeader, setStatLeader] = useState(false)
 
   useEffect(() => {
     axios.get(baseUrl).then(
       (response) => {
-        setStandings(response.data)
+        setSeries(response.data.series)
       },
       (reason) => {
         console.log(reason)
-        setStandings('error')
+        setSeries('error')
       }
     )
     axios.get('/anari/players').then((response) => {
       setPlayers(response.data)
     })
-    axios.get('/anari/statLeader').then(
-      (response) => {
-        setStatLeader(response.data)
-      },
-      (reason) => {
-        console.log(reason)
-        setStatLeader('error')
-      }
-    )
   }, [])
 
   return (
@@ -92,29 +78,19 @@ const App = () => {
           src="https://upload.wikimedia.org/wikipedia/commons/e/e4/NHL_Logo_former.svg"
           alt="-"
         />
-        <h1>VEIKKAUS</h1>
-        {!statLeader && <h4>Loading...</h4>}
-        {statLeader.name && (
-          <h4>{`${statLeader.name}: ${statLeader.points}`}</h4>
-        )}
-        {statLeader === 'error' && <h4>Error in nhl.com</h4>}
+        <h1>PLAYOFFS</h1>
       </header>
 
-      {!standings && <h1>Loading...</h1>}
-      {standings === 'error' && <h1>Error in nhl.com</h1>}
-      {standings['ANA'] && (
+      {!series && <h1>Loading...</h1>}
+      {series === 'error' && <h1>Error in nhl.com</h1>}
+      {series && (
         <>
-          <Divisions standings={standings}></Divisions>
-          {/* <League standings={standings}></League> */}
+          <Playoffs series={series}></Playoffs>
         </>
       )}
 
-      {standings['ANA'] && players && (
-        <Players
-          standings={standings}
-          players={players}
-          statLeader={statLeader}
-        ></Players>
+      {series && players && (
+        <Players series={series} players={players}></Players>
       )}
       {/* {<PlayerForm standings={standings} />} */}
     </Wrapper>

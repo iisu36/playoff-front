@@ -1,17 +1,12 @@
-import Team from './Team'
-import { divisions } from '../utils'
 import styled from 'styled-components'
-
-const colors = {
-  Atlantic: 'hsl(354, 71%, 40%)',
-  Central: 'hsl(41, 100%, 55%)',
-  Metropolitan: 'hsl(17, 98%, 49%)',
-  Pacific: 'hsl(220, 67%, 36%)',
-}
+import { Series } from './Series'
 
 const Wrapper = styled.div`
   display: grid;
+  border-bottom: 3px solid white;
+  padding-bottom: 8px;
 `
+
 const NameWrapper = styled.div`
   display: flex;
   h2,
@@ -32,48 +27,16 @@ const NameWrapper = styled.div`
   }
 `
 
-const TeamsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 3px solid white;
-  border-radius: 12px;
-  overflow: hidden;
-  gap: 3px;
-  background-color: white;
-`
-const DivisionWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background-color: ${(props) => colors[props.division]};
-`
-
-const Player = ({ player, playerRank, standings }) => {
+const Player = ({ player, playerRank, series }) => {
   return (
     <Wrapper>
       <NameWrapper>
         <h2>
           <span>{playerRank}.</span> {player.points} {player.name}{' '}
         </h2>
-        <h4 className="statleader">{player.statLeader}</h4>
+        <h4 className="statleader">{player.connsmythe}</h4>
       </NameWrapper>
-      <TeamsWrapper>
-        {divisions.map((division) => {
-          return (
-            <DivisionWrapper
-              key={`${(player.name, division)}`}
-              division={division}
-            >
-              {player.teams
-                .filter((team) => team.division === division)
-                .map((team) => {
-                  team.teamLogo = standings[team.teamId].teamLogo
-                  const key = `${player.name}${team.teamId}`
-                  return <Team key={key} team={team}></Team>
-                })}
-            </DivisionWrapper>
-          )
-        })}
-      </TeamsWrapper>
+      <Series series={series}></Series>
     </Wrapper>
   )
 }
