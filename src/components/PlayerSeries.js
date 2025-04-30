@@ -1,11 +1,6 @@
-import Team from './Team'
-
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  grid-area: divisions;
-  border-bottom: 4px solid hsl(27.1, 87.7%, 58.4%);
-  padding-bottom: 8px;
   display: grid;
   grid-template-areas:
     'e k n o m i a'
@@ -29,12 +24,37 @@ const SeriesWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 4px;
-  border: 1px solid hsl(27.1, 87.7%, 58.4%);
+  border: 1px solid gray;
   background-color: hsl(0, 0%, 20%);
   border-radius: 4px;
 `
 
-const Series = ({ series }) => {
+const TeamWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 30px;
+  }
+
+  h4 {
+    color: white;
+  }
+`
+
+const Team = ({ team, color }) => {
+  return (
+    <TeamWrapper>
+      <img src={team.teamLogo} alt="img" />
+
+      <h4 style={{ color }}>{team.wins ?? 0}</h4>
+    </TeamWrapper>
+  )
+}
+
+const PlayerSeries = ({ series }) => {
   return (
     <Wrapper>
       {series.map((serie) => {
@@ -63,6 +83,7 @@ const Series = ({ series }) => {
                     teamLogo: serie.topSeedTeam.logo,
                     wins: serie.topSeedWins,
                   }}
+                  color={serie.topColor}
                 />
                 <Team
                   key={serie.bottomSeedTeam.abbrev}
@@ -70,6 +91,7 @@ const Series = ({ series }) => {
                     teamLogo: serie.bottomSeedTeam.logo,
                     wins: serie.bottomSeedWins,
                   }}
+                  color={serie.bottomColor}
                 />
               </>
             )}
@@ -80,4 +102,4 @@ const Series = ({ series }) => {
   )
 }
 
-export default Series
+export default PlayerSeries

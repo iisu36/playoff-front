@@ -20,7 +20,8 @@ const Players = ({ players, series }) => {
             key={player.name}
             player={player}
             playerRank={playerRank++}
-            series={player.series}
+            playerSeries={player.series}
+            series={series}
           ></Player>
         )
       })}
@@ -43,11 +44,12 @@ const countPoints = (players, series) => {
     player.series.forEach((s) => {
       if (s.seriesAbbrev !== 'R1') return
       if (
-        s.bottomSeedWins + s.topSeedWins === 7 &&
         playerSeries[s.seriesLetter].topWins === s.topSeedWins &&
         playerSeries[s.seriesLetter].bottomWins === s.bottomSeedWins
       ) {
         player.points += 5
+        s.topColor = 'green'
+        s.bottomColor = 'green'
       } else if (
         (s.topSeedWins === 4 &&
           playerSeries[s.seriesLetter].topWins === s.topSeedWins) ||
@@ -55,13 +57,29 @@ const countPoints = (players, series) => {
           playerSeries[s.seriesLetter].bottomWins === s.bottomSeedWins)
       ) {
         player.points += 2
+        if (s.topSeedWins === 4) {
+          s.topColor = 'green'
+          s.bottomColor = 'red'
+        } else {
+          s.topColor = 'red'
+          s.bottomColor = 'green'
+        }
       } else if (
-        s.topSeedWins + s.bottomSeedWins === 7 &&
+        (s.topSeedWins === 4 || s.bottomSeedWins === 4) &&
         s.topSeedWins + s.bottomSeedWins ===
           playerSeries[s.seriesLetter].topWins +
             playerSeries[s.seriesLetter].bottomWins
       ) {
         player.points += 1
+        s.topColor = 'yellow'
+        s.bottomColor = 'yellow'
+      } else {
+        if (playerSeries[s.seriesLetter].topWins < s.topSeedWins) {
+          s.topColor = 'red'
+        }
+        if (playerSeries[s.seriesLetter].bottomWins < s.bottomSeedWins) {
+          s.bottomColor = 'red'
+        }
       }
 
       s.topSeedWins = playerSeries[s.seriesLetter].topWins

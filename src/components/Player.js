@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Series } from './Series'
+import PlayerSeries from './PlayerSeries'
 
 const Wrapper = styled.div`
   display: grid;
@@ -27,7 +27,7 @@ const NameWrapper = styled.div`
   }
 `
 
-const Player = ({ player, playerRank, series }) => {
+const Player = ({ player, playerRank, playerSeries, series }) => {
   return (
     <Wrapper>
       <NameWrapper>
@@ -36,7 +36,7 @@ const Player = ({ player, playerRank, series }) => {
         </h2>
         <h4 className="statleader">{player.connsmythe}</h4>
       </NameWrapper>
-      <Series series={series}></Series>
+      <PlayerSeries series={playerSeries}></PlayerSeries>
     </Wrapper>
   )
 }
