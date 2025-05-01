@@ -74,10 +74,16 @@ const countPoints = (players, series) => {
         s.topColor = 'yellow'
         s.bottomColor = 'yellow'
       } else {
-        if (playerSeries[s.seriesLetter].topWins < s.topSeedWins) {
+        if (
+          playerSeries[s.seriesLetter].topWins < s.topSeedWins ||
+          s.bottomSeedWins === 4
+        ) {
           s.topColor = 'red'
         }
-        if (playerSeries[s.seriesLetter].bottomWins < s.bottomSeedWins) {
+        if (
+          playerSeries[s.seriesLetter].bottomWins < s.bottomSeedWins ||
+          s.topSeedWins === 4
+        ) {
           s.bottomColor = 'red'
         }
       }

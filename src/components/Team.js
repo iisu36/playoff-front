@@ -20,7 +20,11 @@ const Team = ({ team }) => {
     <Wrapper>
       <img src={team.teamLogo} alt="img" />
 
-      <h4>{team.wins ?? 0}</h4>
+      {team.wins === 4 ? (
+        <h4 style={{ color: 'hsl(27.1, 87.7%, 58.4%)' }}>{team.wins ?? 0}</h4>
+      ) : (
+        <h4>{team.wins ?? 0}</h4>
+      )}
     </Wrapper>
   )
 }
