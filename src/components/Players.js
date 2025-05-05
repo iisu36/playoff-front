@@ -41,9 +41,18 @@ const countPoints = (players, series) => {
         bottomWins: s.bottomWins,
       }
     })
+    player.secondRound.forEach((s) => {
+      playerSeries[s.seriesLetter] = {
+        topWins: s.topWins,
+        bottomWins: s.bottomWins,
+      }
+    })
     player.series.forEach((s) => {
-      if (s.seriesAbbrev !== 'R1') return
+      if (s.seriesLetter > 'L') {
+        return
+      }
       if (
+        (s.topSeedWins === 4 || s.bottomSeedWins === 4) &&
         playerSeries[s.seriesLetter].topWins === s.topSeedWins &&
         playerSeries[s.seriesLetter].bottomWins === s.bottomSeedWins
       ) {
