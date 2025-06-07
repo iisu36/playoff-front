@@ -47,15 +47,20 @@ const countPoints = (players, series) => {
         bottomWins: s.bottomWins,
       }
     })
-    console.log(player.conference)
     player.conference.forEach((s) => {
       playerSeries[s.seriesLetter] = {
         topWins: s.topWins,
         bottomWins: s.bottomWins,
       }
     })
+    player.stanleyCup.forEach((s) => {
+      playerSeries[s.seriesLetter] = {
+        topWins: s.topWins,
+        bottomWins: s.bottomWins,
+      }
+    })
     player.series.forEach((s) => {
-      if (s.seriesLetter > 'N') {
+      if (s.seriesLetter > 'O') {
         return
       }
       if (
